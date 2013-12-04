@@ -41,7 +41,28 @@ module Evercookie
 
   # controller class defines evercookie actions
   class EvercookieController < ::ApplicationController
+
+    # Renders javascript with evercookie set script
+    def set
+      @data = session[Evercookie.hash_name_for_set] || {key: '', value: ''}
+    end
+
+    # Renders javascript with evercookie get script
+    def get
+      @data = session[Evercookie.hash_name_for_get] || {key: '', value: ''}
+    end
     layout false
+    # Saves current evercookie value to session
+    def save
+      if data = session[Evercookie.hash_name_for_get]
+        if data[:key] && cookies[data[:key]]
+          session[Evercookie.hash_name_for_saved] =
+              { data[:key] => cookies[data[:key]] }
+        end
+      end
+      render nothing: true
+    end
+
     # Renders png image with encoded evercookie value in it
     def ec_png
       if not cookies[Evercookie.cookie_png].present?
