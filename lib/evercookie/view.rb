@@ -7,7 +7,7 @@ module Evercookie
     #   <%= set_evercookie(:key, :value) %>
     def set_evercookie(key, value)
       session[Evercookie.hash_name_for_set] = {key: key, value: value}
-      render inline: "<%= javascript_include_tag 'ec', evercookie_set_path -%>"
+      render inline: "<%= javascript_include_tag 'ec', evercookie_set_path -%>", layout: false
     end
 
     # Generates javascript for checking if evercookie exists and getting it's
@@ -19,7 +19,7 @@ module Evercookie
         session[Evercookie.hash_name_for_get] = {}
       end
       session[Evercookie.hash_name_for_get][:key] = key
-      render inline: "<%= javascript_include_tag 'ec', evercookie_get_path -%>"
+      render inline: "<%= javascript_include_tag 'ec', evercookie_get_path -%>", layout: false
     end
   end
 end
