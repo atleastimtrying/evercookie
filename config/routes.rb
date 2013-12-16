@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   # Adds routes for evercookie under namespace (path)
-  scope "#{Evercookie.get_namespace}" do
+  scope "evercookie" do
     # route for js file to set cookie
     get 'set' => "evercookie/evercookie#set", as: :evercookie_set
     # route for js file to get cookie
